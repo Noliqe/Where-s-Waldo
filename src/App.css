@@ -15,6 +15,8 @@ html {
 .photo {
     max-width: 100vw;
     position: relative;
+    cursor: url('./Images/icons8-pokeball-96.png') 50 50, auto;
+    /* cursor: crosshair; */
 }
 
 .clickSquare {
@@ -26,3 +28,23 @@ html {
     margin-left: -25px;
     border: 2px solid white;
 }
+
+.pokeList {
+    position: absolute;
+    z-index: 1;
+    width: 70px;
+    margin-top: -25px;
+    margin-left: 28px;
+    background-color: white;
+}
+
+.pokeList > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pokeList > ul > button {
+    width: 70px;
+}
+

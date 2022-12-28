@@ -8,7 +8,7 @@ return (
             <img alt="pokemon3"></img>
         </div>
         <div className="header-timer">Timer</div>
-        <div className="header-pokemons-left">5</div>
+        <div className="header-pokemons-left">Pokemons left: 3</div>
 
     </div>
 );

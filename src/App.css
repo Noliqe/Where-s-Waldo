@@ -15,8 +15,8 @@ html {
 .photo {
     max-width: 100vw;
     position: relative;
-    cursor: url('./Components/Images/icons8-pokeball-96.png') 50 50, auto;
-    /* cursor: crosshair; */
+    /* cursor: url('./Components/Images/icons8-pokeball-96.png') 50 50, auto; */
+    cursor: crosshair;
 }
 
 .clickSquare {

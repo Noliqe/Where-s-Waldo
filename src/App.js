@@ -23,6 +23,10 @@ function App() {
     Smeargle: true,
     Kabuto: true
 });
+const [counter, setCounter] = useState(0);
+const [isActive, setIsActive] = useState(false);
+const [username, setUsername] = useState('');
+const [gamePopUp, setGamePopUp] = useState('block');
 
   const db = getFirestore();
 
@@ -60,12 +64,58 @@ function App() {
     }
 }
 
+  // Setup timer
+  useEffect(() => {
+      let interval = null;
+      if (isActive) {
+        interval = setInterval(() => {
+          setCounter(counter => counter + 1);
+        }, 1000);
+      } else if (!isActive && counter !== 0) {
+        clearInterval(interval);
+      }
+      return () => clearInterval(interval);
+  }, [isActive, counter]);
+
+  // toggle timer
+  const toggleTimer = () => {
+    if (!isActive) {
+      return setIsActive(true);
+    }
+    setIsActive(false);
+  }
+
+  // save username
+  const saveUsername = (event) => {
+    event.preventDefault()
+    setUsername(event.target[0].value);
+    setGamePopUp('none');
+  }
+
+  const renderGamePopUp = () => {
+    if (gamePopUp === 'block') {
+      return (
+        <div className='gamePopUp' style={{display: gamePopUp}}>
+        <div className='gamePopUpShadow'>
+        <div className='gamePopUpContainer'>
+          <h3>Enter your name to catch Pokemons!</h3>
+          <form onSubmit={saveUsername}>
+          <input type='text' className='inputUsername' id='inputUsername' maxLength="12" required></input>
+          <input type='submit'></input>
+          </form>
+        </div>
+        </div>
+      </div>
+      )
+    }
+  }
 
 
   return (
     <div className="App">
-      <Header numPoke={numPoke} pokeLeft={pokeLeft}/>
-      <Background photo={photo} checkLocation={checkLocation} catchedPoke={catchedPoke} pokeLeft={pokeLeft} displayPoke={displayPoke}/>
+      <Header numPoke={numPoke} pokeLeft={pokeLeft} counter={counter}/>
+      <Background photo={photo} checkLocation={checkLocation} catchedPoke={catchedPoke} pokeLeft={pokeLeft} displayPoke={displayPoke} toggleTimer={toggleTimer}/>
+      {renderGamePopUp()}
     </div>
   );
 }

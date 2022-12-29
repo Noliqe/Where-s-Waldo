@@ -80,6 +80,7 @@ const Background = (props) => {
             backgroundColor: 'Red',
             text: 'Wrong, try again!',
         });
+        props.toggleTimer();
     }
 
     return (

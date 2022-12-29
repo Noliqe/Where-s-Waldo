@@ -1,12 +1,29 @@
 import { async } from '@firebase/util';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const Background = (props) => {
     const [display, setDisplay] = useState('none');
     const [xyPos, setXYPos] = useState([]);
     const [xyRel, setXYRel] = useState([]);
+    const [popUp, setPopUp] = useState({
+        visibility: 'hidden',
+        backgroundColor: '',
+        text: '',
+    });
 
     const imgRef = useRef();
+
+    useEffect(() => {
+        if (popUp.visibility !== 'hidden') {
+            setTimeout(() => {
+                setPopUp({
+                    visibility: 'hidden',
+                    backgroundColor: '',
+                    text: '',
+                });
+              }, "2000")
+        }
+      }, [popUp]);
   
     const getPos = (e) => {
         if (display === 'none') {
@@ -42,14 +59,27 @@ const Background = (props) => {
         let yAbs = Math.abs(xyRel[1] - coordinates[1]);
 
         if (xAbs < 1 && yAbs < 1) {
-            console.log('true');
             props.catchedPoke();
             props.displayPoke(poke);
+            togglePopUp(true);
         } else {
-            console.log('false');
-            console.log(xAbs);
-            console.log(yAbs);
+            togglePopUp(false);
         }
+    }
+
+    const togglePopUp = (bool) => {
+        if (bool) {
+            return setPopUp({
+                visibility: 'visible',
+                backgroundColor: 'Green',
+                text: 'Great job!',
+            });
+        }
+        setPopUp({
+            visibility: 'visible',
+            backgroundColor: 'Red',
+            text: 'Wrong, try again!',
+        });
     }
 
     return (
@@ -65,6 +95,7 @@ const Background = (props) => {
                     <button onClick={() => {checkForPoke('Kabuto')}} style={{display: props.pokeLeft.Kabuto ? 'block' : 'none' }}>Kabuto</button>
                 </ul>
             </div>
+            <div className='popUp' style={{ backgroundColor: popUp.backgroundColor, visibility: popUp.display}}>{popUp.text}</div>
         </div>
     );
     };

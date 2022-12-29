@@ -6,9 +6,9 @@ html {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    height: 100px;
+    height: 80px;
     width: 100vw;
-    background-color: black;
+    background-color: rgba(133, 120, 95, 0.733);
     color: white;
 }
 
@@ -56,6 +56,19 @@ html {
 
 .pokeList > ul > button:active {
     background-color: rgba(51, 49, 49, 0.315);
+}
+
+.popUp {
+    position: fixed;
+    top: 10%;
+    left: 45%;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    transition: 0.2s ease-in-out;
+    min-width: 150px;
+    min-height: 20px;
 }
 
 
